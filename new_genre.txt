@@ -1,0 +1,6 @@
+insert into genre(genre_id,genre) values(1,'Action')
+insert into genre(genre_id,genre) values(2,'Adventure')
+insert into genre(genre_id,genre) values(3,'Comedy')
+insert into genre(genre_id,genre) values(4,'Drama')
+insert into genre(genre_id,genre) values(5,'Fantasy')
+insert into genre(genre_id,genre) values(6,'Horror')
