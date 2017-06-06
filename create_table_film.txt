@@ -1,0 +1,1 @@
+create table film(film_film_id int, film_title varchar(50), film_genre_id int, film_certification varchar(50), film_rating double)
