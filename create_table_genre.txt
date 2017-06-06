@@ -1,0 +1,1 @@
+create table genre(genre_genre_id int, genre_genre varchar(50))
