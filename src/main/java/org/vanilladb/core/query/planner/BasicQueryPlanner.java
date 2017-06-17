@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016 vanilladb.org
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -52,7 +52,7 @@ public class BasicQueryPlanner implements QueryPlanner {
 				plans.add(new TablePlan(tblname, tx));
 		}
 		// Step 2: Create the product of all table plans
-		Plan p = plans.remove(0);
+		Plan p = plans.remove(0);//return the first object in the list and then remove it from the list
 		for (Plan nextplan : plans)
 			p = new ProductPlan(p, nextplan);
 		// Step 3: Add a selection plan for the predicate

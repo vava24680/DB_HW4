@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016 vanilladb.org
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ import org.vanilladb.core.storage.tx.Transaction;
 /**
  * The verifier which examines the semantic of input query and update
  * statements.
- * 
+ *
  */
 public class Verifier {
 
@@ -54,26 +54,32 @@ public class Verifier {
 		List<QueryData> views = new ArrayList<QueryData>(data.tables().size());
 
 		// examine the table name
-		for (String tblName : data.tables()) {
+		//Determine whether its view or table
+		for (String tblName : data.tables())
+		{//tblName is the name of table
 			String viewdef = VanillaDb.catalogMgr().getViewDef(tblName, tx);
-			if (viewdef == null) {
+			if (viewdef == null)
+			{
 				TableInfo ti = VanillaDb.catalogMgr().getTableInfo(tblName, tx);
 				if (ti == null)
 					throw new BadSemanticException("table " + tblName
 							+ " does not exist");
 				schs.add(ti.schema());
-			} else {
+			}
+			else
+			{
 				Parser parser = new Parser(viewdef);
 				views.add(parser.queryCommand());
 			}
 		}
 
 		// examine the projecting field name
-		for (String fldName : data.projectFields()) {
+		for (String fldName : data.projectFields()) {//fldName is the name of each object in the select list
 			boolean isValid = verifyField(schs, views, fldName);
 			if (!isValid && data.aggregationFn() != null)
 				for (AggregationFn aggFn : data.aggregationFn())
-					if (fldName.compareTo(aggFn.fieldName()) == 0) {
+					if (fldName.compareTo(aggFn.fieldName()) == 0)
+					{//Means that the fields name are the same
 						isValid = true;
 						break;
 					}
